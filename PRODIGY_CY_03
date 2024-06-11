@@ -1,0 +1,46 @@
+import re
+
+def assess_password_strength(password):
+    # Initialize strength criteria
+    length_error = len(password) < 12
+    uppercase_error = re.search(r"[A-Z]", password) is None
+    lowercase_error = re.search(r"[a-z]", password) is None
+    digit_error = re.search(r"\d", password) is None
+    special_error = re.search(r"\W", password) is None
+
+    # Check for errors
+    errors = []
+    if length_error:
+        errors.append("Password should be at least 12 characters long.")
+    if uppercase_error:
+        errors.append("Password should contain at least one uppercase letter.")
+    if lowercase_error:
+        errors.append("Password should contain at least one lowercase letter.")
+    if digit_error:
+        errors.append("Password should contain at least one number.")
+    if special_error:
+        errors.append("Password should contain at least one special character.")
+
+    # Calculate password strength
+    if len(errors) > 2:
+        strength = "Weak"
+    elif len(errors) > 0:
+        strength = "Medium"
+    else:
+        strength = "Strong"
+
+    # Provide feedback
+    if strength == "Weak":
+        print("Password is weak. Please fix the following issues:")
+        for error in errors:
+            print(error)
+    elif strength == "Medium":
+        print("Password is medium. Please fix the following issues to make it stronger:")
+        for error in errors:
+            print(error)
+    else:
+        print("Password is strong!")
+
+# Test the function
+password = input("Enter a password: ")
+assess_password_strength(password)
