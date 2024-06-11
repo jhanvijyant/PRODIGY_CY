@@ -1,0 +1,28 @@
+def caesar_cipher(text, shift, mode):
+    result = ""
+
+    for letter in text:
+        if letter.isalpha():
+            ascii_offset = 65 if letter.isupper() else 97
+            if mode == "encrypt":
+                new_char = chr((ord(letter) - ascii_offset + shift) % 26 + ascii_offset)
+            elif mode == "decrypt":
+                new_char = chr((ord(letter) - ascii_offset - shift) % 26 + ascii_offset)
+            else:
+                raise ValueError("Invalid mode. Choose either 'encrypt' or 'decrypt'.")
+            result += new_char
+        else:
+            result += letter
+
+    return result
+
+# Example usage
+message = "Hello, World!"
+shift = 3
+
+encrypted = caesar_cipher(message, shift, "encrypt")
+print("Encrypted message:", encrypted)
+
+decrypted = caesar_cipher(encrypted, shift, "decrypt")
+print("Decrypted message:", decrypted)
+
